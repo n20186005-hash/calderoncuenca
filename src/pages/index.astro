@@ -1,0 +1,156 @@
+---
+import '../styles/global.css';
+
+const site = Astro.site;
+const pagePath = '/';
+const absolute = site ? new URL(pagePath, site).toString() : undefined;
+const heroImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Cuenca%2C_Parque_Calder%C3%B3n.jpg/1280px-Cuenca%2C_Parque_Calder%C3%B3n.jpg';
+const ogImage = heroImage;
+
+const attraction = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  name: 'Parque Calderón',
+  alternateName: ['Parque Abdón Calderón', 'Plaza Abdón Calderón'],
+  description: 'Plaza histórica y parque urbano en el corazón del Centro Histórico de Cuenca, Ecuador.',
+  image: [ogImage],
+  ...(absolute ? { url: absolute } : {}),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '4X3W+26J, Mariscal Sucre',
+    addressLocality: 'Cuenca',
+    addressRegion: 'Azuay',
+    addressCountry: 'EC'
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: -2.89741, longitude: -79.00447 },
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '00:00', closes: '23:59' }],
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '20000', bestRating: '5' },
+  isAccessibleForFree: true
+};
+
+const faqs = [
+  ['¿La entrada al Parque Calderón tiene costo?', 'No. Es un espacio público abierto y el acceso al parque es gratuito. Atracciones cercanas, como terrazas o museos, pueden cobrar su propia tarifa.'],
+  ['¿Cuál es el mejor momento para visitarlo?', 'La mañana ofrece luz suave y un ambiente más tranquilo; al final de la tarde, la plaza gana vida y la arquitectura se ilumina con tonos cálidos.'],
+  ['¿Cuánto tiempo conviene quedarse?', 'Entre 45 y 90 minutos es suficiente para recorrer el parque con calma, observar la Catedral Nueva y enlazar la visita con el Centro Histórico.'],
+  ['¿Hay estacionamiento en el parque?', 'No hay estacionamiento dentro de la plaza. Conviene usar parqueaderos privados del Centro Histórico y continuar a pie.'],
+  ['¿Es una buena base para recorrer Cuenca?', 'Sí. Desde el parque se puede caminar hacia la Catedral Nueva, la Catedral Vieja, Calle Larga, plazas, cafés y museos del centro.']
+];
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q,a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+---
+<!doctype html>
+<html lang="es-EC">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Parque Calderón, Cuenca — Guía local del corazón histórico</title>
+  <meta name="description" content="Guía práctica del Parque Calderón en Cuenca: historia, cómo llegar, horarios, comida, parqueo, sitios cercanos y consejos de visita." />
+  {absolute && <link rel="canonical" href={absolute} />}
+  <meta property="og:title" content="Parque Calderón, Cuenca" />
+  <meta property="og:description" content="Una guía local para recorrer la plaza más emblemática del Centro Histórico de Cuenca." />
+  <meta property="og:type" content="website" />
+  {absolute && <meta property="og:url" content={absolute} />}
+  <meta property="og:image" content={ogImage} />
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" />
+  <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json" set:html={JSON.stringify(attraction)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+  <script is:inline>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HXM22WWPKP');</script>
+</head>
+<body class="paper">
+  <header class="sticky top-0 z-50 border-b border-black/10 bg-[#f4efe4]/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+      <a href="#inicio" class="flex items-center gap-3 no-underline text-inherit">
+        <img src="/logo.svg" alt="Parque Calderón" class="h-10 w-auto" />
+      </a>
+      <nav class="sans hidden gap-5 text-sm md:flex">
+        <a href="#visita">Visita</a><a href="#llegar">Cómo llegar</a><a href="#comer">Comer</a><a href="#cerca">Cerca</a><a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="relative overflow-hidden border-b border-black/10">
+      <div class="mx-auto grid max-w-6xl items-stretch lg:grid-cols-[1.05fr_.95fr]">
+        <div class="px-6 py-16 lg:py-24">
+          <p class="sans mb-6 text-xs font-semibold uppercase tracking-[.28em] text-[#9b4e38]">Cuenca · Azuay · Ecuador</p>
+          <h1 class="max-w-3xl text-5xl leading-[.95] font-semibold tracking-[-.04em] md:text-7xl">Parque Calderón</h1>
+          <p class="mt-6 max-w-xl text-xl leading-8 text-black/70">El salón urbano de Cuenca: árboles altos, piedra rosada, cúpulas azules y una plaza donde la ciudad histórica sigue marcando el ritmo cotidiano.</p>
+          <div class="sans mt-9 flex flex-wrap gap-3 text-sm">
+            <span class="rounded-full border border-black/15 px-4 py-2">Abierto 24 horas</span>
+            <span class="rounded-full border border-black/15 px-4 py-2">Entrada gratuita</span>
+            <span class="rounded-full border border-black/15 px-4 py-2">Centro Histórico</span>
+          </div>
+        </div>
+        <div class="min-h-[460px] bg-[#315849] p-5 lg:p-8">
+          <div class="relative h-full overflow-hidden rounded-[2rem] border border-white/20 bg-black/10">
+            <img src={heroImage} alt="Parque Calderón y la Catedral de la Inmaculada Concepción en Cuenca" class="h-full w-full object-cover" />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-6 pt-20 text-white">
+              <p class="sans text-xs uppercase tracking-[.2em]">Vista emblemática</p>
+              <p class="mt-2 text-lg">La plaza y la Catedral Nueva forman una de las escenas más reconocibles de Cuenca.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visita" class="mx-auto max-w-6xl px-6 py-16">
+      <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+        <div><p class="sans text-xs font-semibold uppercase tracking-[.24em] text-[#9b4e38]">Por qué importa</p><h2 class="mt-3 text-4xl">El punto cero emocional del centro</h2></div>
+        <div class="text-lg leading-8 text-black/75"><p>Parque Calderón ocupa el corazón del trazado histórico de Cuenca. A su alrededor se concentran edificios cívicos, cafés y dos templos que resumen siglos de transformación urbana. En el centro, el monumento a Abdón Calderón recuerda al héroe cuencano de la independencia.</p><p class="mt-5">Más que “ver” el parque, vale la pena habitarlo unos minutos: sentarse bajo las araucarias, mirar el paso de la gente y usar la plaza como punto de partida para recorrer el casco histórico a pie.</p></div>
+      </div>
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['Tiempo recomendado','45–90 min'],['Horario','24 h'],['Costo','Gratis'],['Altitud','≈ 2.548 m']
+        ].map(([a,b]) => <div class="rounded-3xl border border-black/10 bg-white/45 p-6"><div class="sans text-xs uppercase tracking-[.18em] text-black/50">{a}</div><div class="mt-2 text-2xl">{b}</div></div>)}
+      </div>
+    </section>
+
+    <div class="rule mx-auto max-w-6xl"></div>
+
+    <section class="mx-auto max-w-6xl px-6 py-16 grid gap-8 lg:grid-cols-3">
+      <article class="rounded-[2rem] bg-[#315849] p-8 text-white lg:col-span-2"><p class="sans text-xs uppercase tracking-[.2em] text-white/70">Mejor momento</p><h2 class="mt-3 text-4xl">Mañana serena, tarde dorada</h2><p class="mt-5 max-w-2xl text-lg leading-8 text-white/80">Entre primera hora de la mañana y media mañana hay menos tránsito peatonal y una luz limpia sobre la Catedral Nueva. Al final de la tarde, el parque se vuelve más social y fotogénico. Si buscas calma, evita los momentos de mayor actividad cívica o eventos especiales.</p></article>
+      <article class="rounded-[2rem] border border-black/10 bg-[#c7a45b]/20 p-8"><p class="sans text-xs uppercase tracking-[.2em]">Consejo</p><h3 class="mt-3 text-2xl">Lleva una capa ligera</h3><p class="mt-4 leading-7 text-black/70">Cuenca está en altura y el clima puede cambiar rápido. Incluso en días soleados, una chaqueta liviana y protección solar hacen la caminata más cómoda.</p></article>
+    </section>
+
+    <section id="llegar" class="bg-[#1d2a25] text-white">
+      <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-2">
+        <div><p class="sans text-xs uppercase tracking-[.24em] text-[#c7a45b]">Transporte detallado</p><h2 class="mt-3 text-4xl">Llegar al centro, seguir a pie</h2><div class="mt-7 space-y-5 text-white/80 leading-7"><p><strong class="text-white">A pie:</strong> si ya estás en el Centro Histórico, el parque funciona como referencia natural. Las calles Simón Bolívar, Mariscal Sucre, Benigno Malo y Luis Cordero estructuran el entorno inmediato.</p><p><strong class="text-white">Taxi / app:</strong> pide “Parque Calderón” o “Catedral Nueva”; el descenso suele ser en una de las calles perimetrales, sujeto a cierres y flujo del centro.</p><p><strong class="text-white">Bus urbano:</strong> varias rutas cruzan el centro. Conviene bajar en una parada cercana y completar el último tramo caminando.</p><p><strong class="text-white">Bicicleta:</strong> el centro es compacto; estaciona fuera de los pasos peatonales y respeta las zonas de circulación.</p></div></div>
+        <div class="overflow-hidden rounded-[2rem] border border-white/15 bg-white/5"><iframe title="Mapa del Parque Calderón" src="https://www.google.com/maps?q=Parque%20Calder%C3%B3n%2C%20Cuenca%2C%20Ecuador&output=embed&hl=es&gl=ec" width="100%" height="480" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-16 grid gap-8 lg:grid-cols-2">
+      <div class="rounded-[2rem] border border-black/10 p-8"><p class="sans text-xs uppercase tracking-[.2em] text-[#9b4e38]">Entradas / costos</p><h2 class="mt-3 text-3xl">La plaza es gratuita</h2><p class="mt-4 leading-7 text-black/70">El acceso al Parque Calderón no requiere boleto. Iglesias, museos, miradores o terrazas cercanas pueden operar con tarifas, horarios y condiciones propias; revísalos en el lugar antes de entrar.</p></div>
+      <div class="rounded-[2rem] border border-black/10 p-8"><p class="sans text-xs uppercase tracking-[.2em] text-[#9b4e38]">Estacionamiento</p><h2 class="mt-3 text-3xl">Mejor fuera de la plaza</h2><p class="mt-4 leading-7 text-black/70">No hay parqueo dentro del parque. El Centro Histórico dispone de parqueaderos privados y zonas reguladas en calles cercanas; por calles estrechas, tránsito y posibles restricciones, suele ser más práctico estacionar a unas cuadras y caminar.</p></div>
+    </section>
+
+    <section id="comer" class="mx-auto max-w-6xl px-6 pb-16">
+      <div class="flex items-end justify-between gap-6"><div><p class="sans text-xs uppercase tracking-[.2em] text-[#9b4e38]">Sabores alrededor</p><h2 class="mt-3 text-4xl">Dónde comer cerca</h2></div><p class="sans hidden max-w-md text-sm text-black/55 md:block">La plaza está rodeada de cafés y restaurantes; horarios y cartas pueden cambiar.</p></div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          ['Trattoria Murano','Italiana','Frente al Parque Calderón; una opción cómoda para pasta o pizza en pleno centro.'],
+          ['El Confesionario','Fusión / internacional','Cerca de la plaza, conocido por combinar comida con una vista privilegiada del entorno histórico.'],
+          ['Majoni','Bistró','En la esquina de Benigno Malo y Simón Bolívar, frente al parque; buena parada para cena y postres.']
+        ].map(([name,type,desc]) => <article class="rounded-3xl bg-white/55 p-6 border border-black/10"><div class="sans text-xs uppercase tracking-[.18em] text-black/45">{type}</div><h3 class="mt-2 text-2xl">{name}</h3><p class="mt-3 leading-7 text-black/65">{desc}</p></article>)}
+      </div>
+    </section>
+
+    <section id="cerca" class="bg-[#9b4e38] text-white">
+      <div class="mx-auto max-w-6xl px-6 py-16"><p class="sans text-xs uppercase tracking-[.2em] text-white/70">A pocos pasos</p><h2 class="mt-3 text-4xl">Qué ver alrededor</h2><div class="mt-8 grid gap-5 md:grid-cols-3">
+        {[
+          ['Catedral de la Inmaculada Concepción','La “Catedral Nueva”, con sus cúpulas azules, domina el costado de la plaza.'],
+          ['Catedral Vieja / El Sagrario','Uno de los templos históricos esenciales para entender la evolución religiosa y urbana de Cuenca.'],
+          ['Calle Larga y río Tomebamba','Un corredor ideal para enlazar arquitectura, museos, cafés y vistas hacia el barranco.']
+        ].map(([a,b]) => <article class="rounded-3xl border border-white/20 bg-white/10 p-6"><h3 class="text-2xl">{a}</h3><p class="mt-3 leading-7 text-white/75">{b}</p></article>)}
+      </div></div>
+    </section>
+
+    <section id="faq" class="mx-auto max-w-4xl px-6 py-16"><p class="sans text-xs uppercase tracking-[.2em] text-[#9b4e38]">Preguntas frecuentes</p><h2 class="mt-3 text-4xl">FAQ</h2><div class="mt-8 divide-y divide-black/10 border-y border-black/10">{faqs.map(([q,a]) => <details class="group py-5"><summary class="cursor-pointer list-none text-xl">{q}<span class="float-right sans text-black/40 group-open:rotate-45">+</span></summary><p class="mt-3 max-w-3xl leading-7 text-black/65">{a}</p></details>)}</div></section>
+  </main>
+
+  <footer class="border-t border-black/10 bg-[#eee6d6]"><div class="mx-auto max-w-6xl px-6 py-10"><img src="/logo.svg" alt="Parque Calderón" class="h-12 w-auto" /><p class="sans mt-5 max-w-2xl text-sm leading-6 text-black/55">Guía independiente de viaje. Este sitio no es el sitio oficial del Parque Calderón, del Municipio de Cuenca ni de ninguna institución pública o religiosa.</p></div></footer>
+</body>
+</html>
