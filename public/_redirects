@@ -1,0 +1,9 @@
+# Cloudflare Workers Static Assets only supports PATH-LEVEL redirects here.
+# The domain-level 301 redirects below must be configured in the Cloudflare
+# dashboard (not in this file):
+#   1) Always Use HTTPS  -> forces http:// -> https://
+#   2) Redirect Rule     -> https://www.calderoncuenca.com/* -> https://calderoncuenca.com/$1
+#      (and https://calderoncuenca.com/*  -> https://calderoncuenca.com/$1 if needed)
+# Once those are set, all four URL variants from Search Console
+# (http/www, http/apex, https/www, https/apex) consolidate to the single
+# canonical https://calderoncuenca.com/, concentrating SEO link equity.

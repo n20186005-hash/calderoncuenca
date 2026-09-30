@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ComoLlegar from '../components/ComoLlegar.astro';
+import { content } from '../data/content';
+import { faqLd, breadcrumbLd } from '../lib/schema';
+import type { Locale } from '../i18n';
+
+const locale: Locale = 'es';
+const site = Astro.site?.toString();
+const jsonLd = [
+  faqLd(content[locale].comoLlegar.items_faq),
+  breadcrumbLd(site, [
+    { name: 'Parque Calderón', path: '/' },
+    { name: 'Cómo llegar', path: '/como-llegar/' }
+  ])
+];
+---
+
+<BaseLayout
+  locale={locale}
+  pageKey="comoLlegar"
+  title="Cómo llegar al Parque Calderón, Cuenca: transporte y acceso"
+  description="Cómo llegar al Parque Calderón en Cuenca: a pie, en taxi o app, en bus urbano y en bicicleta. Mapa, estacionamiento y respuestas frecuentes."
+  jsonLd={jsonLd}
+>
+  <ComoLlegar locale={locale} />
+</BaseLayout>

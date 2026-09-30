@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import { content } from '../data/content';
+import { MAPS_URL, GA_ID, ADDRESS } from '../data/site';
+import { localeMeta, localizedPath, otherLocale, type Locale, type PageKey } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  pageKey: PageKey;
+  jsonLd?: unknown[];
+  noIndex?: boolean;
+}
+
+const { locale, title, description, pageKey, jsonLd = [], noIndex = false } = Astro.props;
+const site = Astro.site?.toString();
+const path = localizedPath(pageKey, locale);
+const canonical = site ? new URL(path, site).toString() : path;
+const meta = localeMeta[locale];
+const nav = content[locale].nav;
+const langSwitch = localizedPath(pageKey, otherLocale(locale));
+const langLabel = otherLocale(locale) === 'en' ? 'EN' : 'ES';
+
+const hreflangs: { lang: string; href: string }[] = [
+  { lang: 'es', href: site ? new URL(localizedPath(pageKey, 'es'), site).toString() : localizedPath(pageKey, 'es') },
+  { lang: 'en', href: site ? new URL(localizedPath(pageKey, 'en'), site).toString() : localizedPath(pageKey, 'en') },
+  { lang: 'x-default', href: site ? new URL(localizedPath(pageKey, 'es'), site).toString() : localizedPath(pageKey, 'es') }
+];
+---
+
+<!doctype html>
+<html lang={meta.htmlLang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noIndex && <meta name="robots" content="noindex, follow" />}
+  <link rel="canonical" href={canonical} />
+  <meta name="theme-color" content="#315849" />
+  {hreflangs.map((h) => <link rel="alternate" hreflang={h.lang} href={h.href} />)}
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content={meta.ogLocale} />
+  <meta property="og:site_name" content="Parque Calderón, Cuenca" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Cuenca%2C_Parque_Calder%C3%B3n.jpg/1280px-Cuenca%2C_Parque_Calder%C3%B3n.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Cuenca%2C_Parque_Calder%C3%B3n.jpg/1280px-Cuenca%2C_Parque_Calder%C3%B3n.jpg" />
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" />
+  <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+  {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)}></script>)}
+  <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+  <script is:inline>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','{GA_ID}');</script>
+</head>
+<body class="paper">
+  <header class="sticky top-0 z-50 border-b border-black/10 bg-[#f4efe4]/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+      <a href={localizedPath('home', locale)} class="flex items-center gap-3 no-underline text-inherit">
+        <img src="/logo.svg" alt="Parque Calderón" class="h-10 w-auto" />
+      </a>
+      <nav class="sans hidden items-center gap-5 text-sm md:flex">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        <a href={langSwitch} class="rounded-full border border-black/20 px-3 py-1 font-semibold">{langLabel}</a>
+      </nav>
+      <a href={langSwitch} class="sans rounded-full border border-black/20 px-3 py-1 text-sm font-semibold md:hidden">{langLabel}</a>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="border-t border-black/10 bg-[#eee6d6]">
+    <div class="mx-auto max-w-6xl px-6 py-10">
+      <img src="/logo.svg" alt="Parque Calderón" class="h-12 w-auto" />
+      <p class="sans mt-5 max-w-2xl text-sm leading-6 text-black/55">{content[locale].footer.disclaimer}</p>
+      <address class="sans mt-6 not-italic text-sm leading-6 text-black/60">
+        {ADDRESS} ·
+        <a href={MAPS_URL} rel="noopener" class="text-[#315849] no-underline hover:underline">Google Maps ↗</a>
+      </address>
+    </div>
+  </footer>
+</body>
+</html>

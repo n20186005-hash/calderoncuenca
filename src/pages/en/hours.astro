@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Horarios from '../../components/Horarios.astro';
+import { content } from '../../data/content';
+import { faqLd, breadcrumbLd } from '../../lib/schema';
+import type { Locale } from '../../i18n';
+
+const locale: Locale = 'en';
+const site = Astro.site?.toString();
+const jsonLd = [
+  faqLd(content[locale].horarios.items_faq),
+  breadcrumbLd(site, [
+    { name: 'Parque Calderón', path: '/en/' },
+    { name: 'Hours', path: '/en/hours/' }
+  ])
+];
+---
+
+<BaseLayout
+  locale={locale}
+  pageKey="horarios"
+  title="Parque Calderón, Cuenca hours: open 24 hours & free"
+  description="Hours and facts about Parque Calderón in Cuenca: open 24 hours, free entry, best time, duration and altitude."
+  jsonLd={jsonLd}
+>
+  <Horarios locale={locale} />
+</BaseLayout>

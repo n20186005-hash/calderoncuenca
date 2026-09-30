@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeContent from '../../components/HomeContent.astro';
+import { content } from '../../data/content';
+import { faqLd, breadcrumbLd, attractionLd } from '../../lib/schema';
+import type { Locale } from '../../i18n';
+
+const locale: Locale = 'en';
+const site = Astro.site?.toString();
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Parque Calderón, Cuenca', url: site ? new URL('/en/', site).toString() : '/en/' },
+  attractionLd(site, locale),
+  faqLd(content[locale].faq.items),
+  breadcrumbLd(site, [{ name: 'Parque Calderón', path: '/en/' }])
+];
+---
+
+<BaseLayout
+  locale={locale}
+  pageKey="home"
+  title="Parque Calderón, Cuenca: how to get there, hours & what to do"
+  description="Guide to Parque Calderón in Cuenca, Ecuador: how to get there, open 24 hours, free entry, where to eat, what to see nearby and visit tips in the Historic Center."
+  jsonLd={jsonLd}
+>
+  <HomeContent locale={locale} />
+</BaseLayout>

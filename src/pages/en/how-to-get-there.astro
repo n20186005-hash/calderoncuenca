@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ComoLlegar from '../../components/ComoLlegar.astro';
+import { content } from '../../data/content';
+import { faqLd, breadcrumbLd } from '../../lib/schema';
+import type { Locale } from '../../i18n';
+
+const locale: Locale = 'en';
+const site = Astro.site?.toString();
+const jsonLd = [
+  faqLd(content[locale].comoLlegar.items_faq),
+  breadcrumbLd(site, [
+    { name: 'Parque Calderón', path: '/en/' },
+    { name: 'Getting there', path: '/en/how-to-get-there/' }
+  ])
+];
+---
+
+<BaseLayout
+  locale={locale}
+  pageKey="comoLlegar"
+  title="How to get to Parque Calderón, Cuenca: transport & access"
+  description="How to get to Parque Calderón in Cuenca: on foot, by taxi or ride app, city bus and bicycle. Map, parking and frequently asked questions."
+  jsonLd={jsonLd}
+>
+  <ComoLlegar locale={locale} />
+</BaseLayout>
