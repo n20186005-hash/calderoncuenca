@@ -1,3 +1,5 @@
+> Registro histórico de la entrega inicial; no es la aceptación de la versión actual. Las referencias antiguas a dominio vacío y fotografía remota quedan sustituidas por README.md, IMAGE-SOURCES.md y la implementación actual.
+
 # Entrega / autocomprobación
 
 - [x] Astro + Tailwind CSS + TypeScript definidos con versiones exactas.

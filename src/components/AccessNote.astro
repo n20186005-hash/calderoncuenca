@@ -1,0 +1,11 @@
+---
+import type {Locale} from '../i18n';
+const {locale}=Astro.props as {locale:Locale};
+const es=locale==='es';
+---
+<aside class="access-note" aria-label={es?'Estado de acceso y fuentes':'Access status and sources'}>
+<h2>{es?'Reapertura y horarios: actualización del 30 de octubre de 2026':'Reopening and hours: checked 30 October 2026'}</h2>
+<p>{es?'El Municipio informó el 29 de octubre que el parque reabrió oficialmente el 28 de octubre, tras completar los cuatro cuadrantes y la glorieta. Esa noticia confirma la reapertura, no un horario permanente de 24 horas ni seguridad nocturna.':'On 29 October, the Municipality reported the park’s official reopening on 28 October after work on its four quadrants and bandstand. This confirms reopening, not a permanent 24-hour timetable or night-time safety.'} <a href="https://www.cuenca.gob.ec/node/35309">{es?'Aviso municipal':'Municipal notice'} ↗</a></p>
+<p>{es?'Google Maps indica 24 horas. Comprueba avisos locales para tu fecha. La Catedral Nueva, sus terrazas y criptas y el Museo Catedral Vieja son recintos independientes; sus horarios, entradas, actos religiosos y restricciones no son los del parque. No usamos los horarios o tarifas del folleto turístico de 2016 como datos actuales.':'Google Maps lists 24-hour access. Check local notices for your date. The New Cathedral, its terraces and crypts and the Old Cathedral Museum are separate venues; their hours, admission, services and restrictions are not the park’s. The 2016 tourist brochure’s hours and fees are not treated as current.'}</p>
+<p>{es?'El Municipio informa mejoras de pavimento y elementos podotáctiles. Maps marca una entrada accesible, pero ninguna de estas fuentes verifica todos los cruces, desniveles, rampas o accesos interiores de un itinerario completo. Confirma la ruta concreta y la asistencia necesaria.':'The Municipality reports paving and tactile-guidance improvements. Maps marks an accessible entrance, but neither source verifies every crossing, level change, ramp or indoor entrance along a complete route. Confirm the actual route and any assistance needed.'}</p>
+</aside>

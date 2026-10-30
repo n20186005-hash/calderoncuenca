@@ -1,12 +1,5 @@
-# Fuentes de imágenes reales
+# Image provenance
 
-1. **parque-calderon-catedral.jpg**
-   - Fuente: Wikimedia Commons — “Cuenca, Parque Calderón.jpg”
-   - Autor: Johannes Wagenknecht
-   - Licencia: CC BY-SA 4.0
-   - Página: https://commons.wikimedia.org/wiki/File:Cuenca,_Parque_Calder%C3%B3n.jpg
-   - Resolución sugerida: 1280×960
+The served cover `public/images/park-symbol.svg` is a site-authored geometric illustration (trees, a square and domes), released under CC0. It is explicitly labelled symbolic in Spanish and English; it is not a photograph, accurate architectural reconstruction or evidence of the 2026 renovations. `park-symbol.png` is the same code-authored SVG exported at 1200x900 for social cards using the existing Sharp dependency. Existing code-authored logo/icons retained.
 
-2. Fotografía alternativa: Wikimedia Commons / vista de plaza y Catedral (consulta la categoría Plaza Calderón para más opciones libres).
-
-Mantén la atribución de la fotografía según la licencia aplicable.
+Former remote photograph: https://commons.wikimedia.org/wiki/File:Cuenca,_Parque_Calder%C3%B3n.jpg , Johannes Wagenknecht, own work, 23 December2017, CC BY-SA4.0 https://creativecommons.org/licenses/by-sa/4.0/ . This historical file is no longer served: original and official thumbnail could not be retrieved for binary/subject verification in bounded ordinary requests. Licence records alone do not establish the contents or present site conditions. No external photographic licence or depicted-person permission is asserted for the new illustration.

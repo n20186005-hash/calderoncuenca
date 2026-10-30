@@ -14,3 +14,7 @@ body { margin: 0; background: var(--cream); color: var(--ink); font-family: Geor
 .sans { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 .paper { background-image: radial-gradient(circle at 20% 20%, #ffffff55 0 1px, transparent 1px), radial-gradient(circle at 80% 40%, #00000008 0 1px, transparent 1px); background-size: 24px 24px, 30px 30px; }
 .rule { height: 1px; background: linear-gradient(90deg, transparent, #1d2a2544, transparent); }
+
+*{box-sizing:border-box}img{max-width:100%}h1{overflow-wrap:anywhere}a:focus-visible,summary:focus-visible{outline:3px solid #315849;outline-offset:4px}header nav a{display:inline-flex;align-items:center;min-height:44px}.access-note{max-width:72rem;margin:1.2rem auto;padding:1.25rem;background:#fff9eb;border:1px solid #9b4e38;border-radius:1rem;line-height:1.7}.access-note h2,.guide-sources h2{font-size:1.2rem;font-weight:700}.access-note p,.guide-sources p{margin-top:.75rem}.access-note a,.guide-sources a{text-decoration:underline}.guide-sources{margin-top:2rem;max-width:65rem;line-height:1.7;color:#263b31}.guide-sources ul{list-style:disc;padding-inline-start:1.3rem}.guide-sources details{margin-top:1.2rem}.guide-sources summary{cursor:pointer;min-height:44px;font-weight:700}@media(max-width:640px){.access-note{margin-inline:1rem}header{position:relative!important}}
+
+a:focus-visible,summary:focus-visible{box-shadow:0 0 0 5px #f4efe4}
