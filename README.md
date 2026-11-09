@@ -16,7 +16,22 @@ corepack enable
 pnpm install --frozen-lockfile
 pnpm check
 pnpm build
+pnpm check:guides
 ```
+
+`check:guides` valida el resultado de `dist/`: las 36 guías, canonical y hreflang por página, datos estructurados (Article + BreadcrumbList + FAQPage), coincidencia entre FAQ visibles y JSON-LD, enlaces internos sin destinos rotos, el clúster de la portada y las 42 URL del sitemap.
+
+## Guías temáticas en español
+
+Se publican 36 guías independientes en español (`es-EC`), organizadas en seis grupos: información práctica, transporte, historia y patrimonio, lugares cercanos, comida y alojamiento, rutas y fotografía. No tienen versión inglesa y por eso solo declaran `hreflang="es-EC"` y `x-default`; las seis páginas bilingües originales mantienen el par `es-EC` / `en` / `x-default`.
+
+- Registro de URL y fuentes: `src/data/topic-slugs.ts`.
+- Contenido por grupo: `src/data/topics/*.ts`; `src/data/topics.ts` los reúne y resuelve los enlaces relacionados.
+- Render y datos estructurados: `src/components/TopicPage.astro` y `src/lib/schema.ts`.
+- Rutas estáticas: `src/pages/[...topic].astro` genera `/<slug>/`, incluidas las de `/cerca/`.
+- Enlaces internos: `src/components/TopicLinks.astro` (clúster `#guias` de la portada, y bloques por grupo en `/como-llegar/` y `/horarios/`).
+
+Las guías no publican tarifas, horarios de recintos ni nombres de restaurantes u hoteles sin verificarlos; cada página indica la fecha de revisión, sus fuentes y la distinción entre el espacio público del parque y los recintos con administración propia. El Parque Calderón se describe como parte del Centro Histórico inscrito por UNESCO, nunca como una inscripción individual.
 
 ## Cloudflare Workers
 `wrangler.jsonc` sirve `./dist` como assets estáticos. Tras compilar, despliega con Wrangler desde Cloudflare o CI.

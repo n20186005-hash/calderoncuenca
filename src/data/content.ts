@@ -51,12 +51,13 @@ export const content: Record<Locale, LocaleContent> = {
       { label: 'Horarios', href: '/horarios/' },
       { label: 'Comer', href: '/#comer' },
       { label: 'Cerca', href: '/#cerca' },
+      { label: 'Guías', href: '/#guias' },
       { label: 'FAQ', href: '/#faq' }
     ],
     ids: { visita: 'visita', comer: 'comer', cerca: 'cerca', faq: 'faq' },
     hero: {
       eyebrow: 'Cuenca · Azuay · Ecuador',
-      h1: 'Parque Calderón',
+      h1: 'Parque Calderón – Cuenca, Ecuador',
       subtitle: 'El salón urbano de Cuenca: árboles, edificios históricos y cúpulas azules y una plaza donde la ciudad histórica sigue marcando el ritmo cotidiano.',
       badges: ['Reapertura municipal: 28 oct 2026', '24 h: dato de Maps', 'Centro Histórico'],
       capEyebrow: 'Vista emblemática',
@@ -185,7 +186,7 @@ export const content: Record<Locale, LocaleContent> = {
     ids: { visita: 'visit', comer: 'eat', cerca: 'nearby', faq: 'faq' },
     hero: {
       eyebrow: 'Cuenca · Azuay · Ecuador',
-      h1: 'Parque Calderón',
+      h1: 'Parque Calderón, Cuenca, Ecuador',
       subtitle: 'Cuenca’s urban living room: trees, historic buildings and blue domes and a square where the historic city still sets the daily rhythm.',
       badges: ['Municipal reopening: 28 Oct 2026', '24h: Maps listing', 'Historic Center'],
       capEyebrow: 'Iconic view',

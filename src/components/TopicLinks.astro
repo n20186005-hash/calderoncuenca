@@ -1,0 +1,61 @@
+---
+import {
+  groupedTopics,
+  topicsByGroup,
+  TOPIC_GROUP_LABELS,
+  TOPIC_SLUGS,
+  topicPath,
+  type TopicGroup
+} from '../data/topics';
+
+interface Props { group?: TopicGroup }
+const { group } = Astro.props;
+
+const GROUP_INTROS: Record<TopicGroup, string> = {
+  practico: 'Reapertura, entradas, duración, mejor hora, accesibilidad y visita en familia.',
+  transporte: 'Aeropuerto, Terminal Terrestre, estacionamiento, bus, tranvía y calles del entorno.',
+  historia: 'El origen de la plaza, el monumento, la glorieta, los edificios y el conjunto patrimonial.',
+  cerca: 'Catedrales, plazas, seminario y museos que se recorren a pie desde el parque.',
+  comer: 'Cómo elegir restaurantes, cafés, desayunos, comida típica y alojamiento sin datos inventados.',
+  rutas: 'Itinerarios de 30 minutos a un día, fotografía y planes para días de lluvia.'
+};
+
+const groups = group
+  ? [{ group, topics: topicsByGroup(group) }]
+  : groupedTopics();
+const id = group ? `guias-${group}` : 'guias';
+const heading = group
+  ? `Guías de ${TOPIC_GROUP_LABELS[group].toLowerCase()}`
+  : 'Guías para planificar tu visita';
+const intro = group
+  ? GROUP_INTROS[group]
+  : `${TOPIC_SLUGS.length} guías independientes en español sobre el Parque Calderón y el Centro Histórico de Cuenca. Cada una responde a una decisión concreta de viaje, con fuentes fechadas y sin horarios ni precios inventados.`;
+const footer = group
+  ? { href: '/#guias', label: 'Ver todas las guías del Parque Calderón' }
+  : { href: '/como-llegar/', label: 'Ir al centro de transporte y acceso' };
+---
+
+<section id={id} class="border-t border-black/10 bg-[#eee6d6]">
+  <div class="mx-auto max-w-6xl px-6 py-16">
+    <p class="sans text-xs font-semibold uppercase tracking-[.24em] text-[#9b4e38]">Guías temáticas</p>
+    <h2 class="mt-3 text-4xl">{heading}</h2>
+    <p class="sans mt-4 max-w-3xl text-sm leading-7 text-black/75">{intro}</p>
+    <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {groups.map((g) => (
+        <div>
+          <h3 class="text-2xl">{TOPIC_GROUP_LABELS[g.group]}</h3>
+          <p class="sans mt-2 text-sm leading-6 text-black/70">{GROUP_INTROS[g.group]}</p>
+          <ul class="sans mt-4 space-y-3 text-sm">
+            {g.topics.map((t) => (
+              <li>
+                <a href={topicPath(t.slug)} class="font-semibold text-[#315849] underline">{t.navTitle}</a>
+                <span class="block leading-6 text-black/70">{t.card}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p class="sans mt-10 text-sm"><a href={footer.href} class="text-[#315849] underline">{footer.label}</a></p>
+  </div>
+</section>

@@ -47,3 +47,56 @@ export function breadcrumbLd(site: string | undefined, crumbs: { name: string; p
 export function homeBreadcrumb(site: string | undefined, locale: Locale) {
   return breadcrumbLd(site, [{ name: 'Parque Calderón', path: localizedPath('home', locale) }]);
 }
+
+/** Place schema for a specific landmark (nearby attractions). No invented coordinates. */
+export function placeLd(site: string | undefined, opts: { name: string; description: string; path: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Place',
+    name: opts.name,
+    description: opts.description,
+    url: site ? new URL(opts.path, site).toString() : opts.path,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Cuenca',
+      addressRegion: 'Azuay',
+      addressCountry: 'EC'
+    },
+    ...(site ? { image: new URL('/images/parque-calderon-photo.jpg', site).toString() } : {})
+  };
+}
+
+/** WebPage schema for the homepage, pointing at the attraction entity. */
+export function webPageLd(site: string | undefined) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Parque Calderón, Cuenca',
+    url: site ? new URL('/', site).toString() : '/',
+    inLanguage: 'es-EC',
+    mainEntity: { '@id': site ? new URL('/#attraction', site).toString() : '/#attraction' }
+  };
+}
+
+/** Article schema for the Spanish guide pages. It never invents prices, hours or ratings. */
+export function articleLd(
+  site: string | undefined,
+  opts: { title: string; description: string; path: string; dateModified: string; mentions?: string[] }
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: opts.title,
+    description: opts.description,
+    inLanguage: 'es-EC',
+    mainEntityOfPage: site ? new URL(opts.path, site).toString() : opts.path,
+    datePublished: opts.dateModified,
+    dateModified: opts.dateModified,
+    author: { '@type': 'Organization', name: 'Guía independiente del Parque Calderón' },
+    publisher: { '@type': 'Organization', name: 'Guía independiente del Parque Calderón' },
+    about: { '@id': site ? new URL('/#attraction', site).toString() : '/#attraction' },
+    ...(opts.mentions && opts.mentions.length
+      ? { mentions: opts.mentions.map((name) => ({ '@type': 'Thing', name })) }
+      : {})
+  };
+}

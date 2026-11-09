@@ -18,3 +18,11 @@ body { margin: 0; background: var(--cream); color: var(--ink); font-family: Geor
 *{box-sizing:border-box}img{max-width:100%}h1{overflow-wrap:anywhere}a:focus-visible,summary:focus-visible{outline:3px solid #315849;outline-offset:4px}header nav a{display:inline-flex;align-items:center;min-height:44px}.access-note{max-width:72rem;margin:1.2rem auto;padding:1.25rem;background:#fff9eb;border:1px solid #9b4e38;border-radius:1rem;line-height:1.7}.access-note h2,.guide-sources h2{font-size:1.2rem;font-weight:700}.access-note p,.guide-sources p{margin-top:.75rem}.access-note a,.guide-sources a{text-decoration:underline}.guide-sources{margin-top:2rem;max-width:65rem;line-height:1.7;color:#263b31}.guide-sources ul{list-style:disc;padding-inline-start:1.3rem}.guide-sources details{margin-top:1.2rem}.guide-sources summary{cursor:pointer;min-height:44px;font-weight:700}@media(max-width:640px){.access-note{margin-inline:1rem}header{position:relative!important}}
 
 a:focus-visible,summary:focus-visible{box-shadow:0 0 0 5px #f4efe4}
+
+.topic-list{list-style:disc;padding-inline-start:1.35rem;line-height:1.75}
+.topic-list li{margin-top:.4rem}
+.topic-note{margin-top:1.25rem;padding:1rem 1.2rem;border-left:4px solid #9b4e38;background:#fff9eb;border-radius:0 1rem 1rem 0;line-height:1.7;font-size:.97rem}
+.topic-card{display:block;color:inherit;transition:transform .18s ease,border-color .18s ease}
+.topic-card:hover{border-color:#315849;transform:translateY(-2px)}
+.topic-card:focus-visible{outline:3px solid #315849;outline-offset:4px}
+@media(max-width:640px){#guias h2,#relacionadas h2,#fuentes h2{font-size:1.9rem}}

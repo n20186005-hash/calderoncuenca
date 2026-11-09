@@ -2,14 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeContent from '../components/HomeContent.astro';
 import { content } from '../data/content';
-import { faqLd, breadcrumbLd, attractionLd } from '../lib/schema';
+import { faqLd, breadcrumbLd, attractionLd, placeLd, webPageLd } from '../lib/schema';
 import type { Locale } from '../i18n';
 
 const locale: Locale = 'es';
 const site = Astro.site?.toString();
 const jsonLd = [
-  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Parque Calderón, Cuenca', url: site ? new URL('/', site).toString() : '/' },
+  webPageLd(site),
   attractionLd(site, locale),
+  placeLd(site, {
+    name: 'Parque Calderón',
+    description: 'Historic square and urban park at the heart of the Cuenca Historic Center, Ecuador.',
+    path: '/'
+  }),
   faqLd(content[locale].faq.items),
   breadcrumbLd(site, [{ name: 'Parque Calderón', path: '/' }])
 ];
@@ -18,8 +23,8 @@ const jsonLd = [
 <BaseLayout
   locale={locale}
   pageKey="home"
-  title="Parque Calderón, Cuenca: cómo llegar, horarios y qué hacer"
-  description="Guía del Parque Calderón en Cuenca, Ecuador: cómo llegar, reapertura de octubre de 2026, horarios de Maps y visitas cercanas, dónde comer, sitios cercanos y consejos de visita en el Centro Histórico."
+  title="Parque Calderón Cuenca 2026 | Qué ver, cómo llegar y horarios"
+  description="Descubre el Parque Calderón de Cuenca, Ecuador. Consulta su reapertura, horarios, cómo llegar, qué visitar alrededor y rutas por el centro histórico."
   jsonLd={jsonLd}
 >
   <HomeContent locale={locale} />

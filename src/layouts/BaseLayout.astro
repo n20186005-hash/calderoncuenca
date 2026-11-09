@@ -12,22 +12,30 @@ interface Props {
   pageKey: PageKey;
   jsonLd?: unknown[];
   noIndex?: boolean;
+  // Spanish-only guide pages override canonical, hreflang and the language switch.
+  canonicalPath?: string;
+  alternates?: { lang: string; path: string }[];
+  langSwitchHref?: string;
 }
 
-const { locale, title, description, pageKey, jsonLd = [], noIndex = false } = Astro.props;
+const { locale, title, description, pageKey, jsonLd = [], noIndex = false, canonicalPath, alternates, langSwitchHref } = Astro.props;
 const site = Astro.site?.toString();
-const path = localizedPath(pageKey, locale);
+const path = canonicalPath ?? localizedPath(pageKey, locale);
 const canonical = site ? new URL(path, site).toString() : path;
 const meta = localeMeta[locale];
 const nav = content[locale].nav;
-const langSwitch = localizedPath(pageKey, otherLocale(locale));
+const langSwitch = langSwitchHref ?? localizedPath(pageKey, otherLocale(locale));
 const langLabel = otherLocale(locale) === 'en' ? 'EN' : 'ES';
 
-const hreflangs: { lang: string; href: string }[] = [
-  { lang: 'es', href: site ? new URL(localizedPath(pageKey, 'es'), site).toString() : localizedPath(pageKey, 'es') },
-  { lang: 'en', href: site ? new URL(localizedPath(pageKey, 'en'), site).toString() : localizedPath(pageKey, 'en') },
-  { lang: 'x-default', href: site ? new URL(localizedPath(pageKey, 'es'), site).toString() : localizedPath(pageKey, 'es') }
+const alternatePaths = alternates ?? [
+  { lang: 'es-EC', path: localizedPath(pageKey, 'es') },
+  { lang: 'en', path: localizedPath(pageKey, 'en') },
+  { lang: 'x-default', path: localizedPath(pageKey, 'es') }
 ];
+const hreflangs: { lang: string; href: string }[] = alternatePaths.map((h) => ({
+  lang: h.lang,
+  href: site ? new URL(h.path, site).toString() : h.path
+}));
 ---
 
 <!doctype html>

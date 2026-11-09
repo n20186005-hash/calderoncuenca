@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "check": "astro check",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check:guides": "node scripts/verify-guides.mjs",
+    "check:source": "node scripts/validate-source.mjs"
   },
   "dependencies": {
     "@astrojs/check": "0.9.10",
